@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionHub Backend Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .status {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        .status.success {
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+        }
+
+        .status.error {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+        }
+
+        .endpoints {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .endpoint-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .endpoint-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .endpoint-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .endpoint-card .method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .method.get {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .method.post {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .endpoint-card .url {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+
+        .endpoint-card .description {
+            color: #64748b;
+            font-size: 0.95em;
+        }
+
+        .response-area {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .response-area:empty::before {
+            content: 'यहाँ API response दिखेगा... किसी endpoint पर क्लिक करें';
+            color: #64748b;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-group {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-weight: bold;
+            padding: 20px;
+        }
+
+        .info-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #78350f;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ FashionHub Backend Tester</h1>
+        <p class="subtitle">Backend API को आसानी से test करें</p>
+
+        <div id="status" class="status">
+            <strong>🔄 Backend Status:</strong> Checking...
+        </div>
+
+        <div class="info-box">
+            <h4>📧 Test Login Credentials:</h4>
+            <p><strong>Admin:</strong> admin@fashionhub.com / admin123</p>
+            <p><strong>User:</strong> john@example.com / password123</p>
+        </div>
+
+        <h2 style="margin: 30px 0 20px 0; color: #333;">📡 Available Endpoints:</h2>
+
+        <div class="endpoints">
+            <div class="endpoint-card" onclick="testEndpoint('/')">
+                <h3>Health Check</h3>
+                <span class="method get">GET</span>
+                <div class="url">http://localhost:5000/</div>
+                <p class="description">Backend server की health check करें</p>
+            </div>
+
+            <div class="endpoint-card" onclick="testEndpoint('/api/products')">
+                <h3>All Products</h3>
+                <span class="method get">GET</span>
+                <div class="url">http://localhost:5000/api/products</div>
+                <p class="description">सभी products की list देखें</p>
+            </div>
+
+            <div class="endpoint-card" onclick="testEndpoint('/api/products/categories')">
+                <h3>Categories</h3>
+                <span class="method get">GET</span>
+                <div class="url">http://localhost:5000/api/products/categories</div>
+                <p class="description">सभी categories देखें</p>
+            </div>
+
+            <div class="endpoint-card" onclick="testEndpoint('/api/products/top')">
+                <h3>Top Products</h3>
+                <span class="method get">GET</span>
+                <div class="url">http://localhost:5000/api/products/top</div>
+                <p class="description">Top rated products देखें</p>
+            </div>
+
+            <div class="endpoint-card" onclick="testLogin()">
+                <h3>Login Test</h3>
+                <span class="method post">POST</span>
+                <div class="url">http://localhost:5000/api/auth/login</div>
+                <p class="description">User login test करें</p>
+            </div>
+
+            <div class="endpoint-card" onclick="testEndpoint('/api/products?category=Clothing')">
+                <h3>Filter by Category</h3>
+                <span class="method get">GET</span>
+                <div class="url">http://localhost:5000/api/products?category=Clothing</div>
+                <p class="description">Category के हिसाब से filter करें</p>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" onclick="openBackend()">🌐 Backend खोलें</button>
+            <button class="btn" onclick="openFrontend()">🛍️ Frontend खोलें</button>
+            <button class="btn" onclick="clearResponse()">🗑️ Clear</button>
+        </div>
+
+        <h2 style="margin: 30px 0 20px 0; color: #333;">📋 Response:</h2>
+        <div id="response" class="response-area"></div>
+    </div>
+
+    <script>
+        // Check backend status on load
+        window.onload = function() {
+            checkBackendStatus();
+        };
+
+        async function checkBackendStatus() {
+            const statusDiv = document.getElementById('status');
+            try {
+                const response = await fetch('http://localhost:5000/');
+                if (response.ok) {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '<strong>✅ Backend Status:</strong> Running Successfully on http://localhost:5000';
+                } else {
+                    throw new Error('Backend not responding');
+                }
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '<strong>❌ Backend Status:</strong> Not Running. Please start the backend server.';
+            }
+        }
+
+        async function testEndpoint(endpoint) {
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = '<div class="loading">⏳ Loading...</div>';
+
+            try {
+                const response = await fetch('http://localhost:5000' + endpoint);
+                const data = await response.json();
+                responseDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseDiv.textContent = '❌ Error: ' + error.message + '\n\nकृपया सुनिश्चित करें कि backend server चल रहा है।';
+            }
+        }
+
+        async function testLogin() {
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = '<div class="loading">⏳ Logging in...</div>';
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'john@example.com',
+                        password: 'password123'
+                    })
+                });
+                const data = await response.json();
+                responseDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseDiv.textContent = '❌ Error: ' + error.message;
+            }
+        }
+
+        function openBackend() {
+            window.open('http://localhost:5000', '_blank');
+        }
+
+        function openFrontend() {
+            window.open('http://localhost:3000', '_blank');
+        }
+
+        function clearResponse() {
+            document.getElementById('response').textContent = '';
+        }
+    </script>
+</body>
+</html>
