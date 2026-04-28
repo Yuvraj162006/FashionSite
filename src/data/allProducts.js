@@ -1,114 +1,90 @@
-// Products with names matching actual images - 100 items
+// FashionSite - 50 Products with Image-Matched Names
+// Each product name matches its image accurately
+
 export const allProductsData = [
-    // Based on product-1.jpg to product-17.jpg pattern
+    // Product 1 - Red/Floral Dress
+    { id: 1, name: "Red Floral Summer Dress", category: "Women's", price: 1299, rating: 4.6, reviews: 342, image: "/images/product-1.jpg", discount: 28 },
+    { id: 2, name: "Floral Maxi Dress", category: "Women's", price: 1599, rating: 4.7, reviews: 456, image: "/images/product-1.jpg", discount: 32 },
+    { id: 3, name: "Summer Floral Dress", category: "Women's", price: 1399, rating: 4.5, reviews: 289, image: "/images/product-1.jpg", discount: 25 },
     
-    // Women's Fashion (25 items)
-    { id: 1, name: "Satin Wrap Dress", category: "Women's", price: 1299, rating: 4.8, reviews: 567, image: "/images/product-1.jpg", discount: 35 },
-    { id: 2, name: "Casual T-Shirt", category: "Women's", price: 599, rating: 4.5, reviews: 234, image: "/images/product-2.jpg", discount: 20 },
-    { id: 3, name: "White Dress Shirt", category: "Women's", price: 899, rating: 4.6, reviews: 345, image: "/images/product-3.jpg", discount: 25 },
-    { id: 4, name: "Sunglasses", category: "Accessories", price: 999, rating: 4.7, reviews: 456, image: "/images/product-4.jpg", discount: 30 },
-    { id: 5, name: "Cashmere Sweater", category: "Women's", price: 1599, rating: 4.9, reviews: 678, image: "/images/product-5.jpg", discount: 40 },
-    { id: 6, name: "Denim Jacket", category: "Women's", price: 1899, rating: 4.8, reviews: 567, image: "/images/product-6.jpg", discount: 35 },
-    { id: 7, name: "Chino Pants", category: "Men's", price: 1099, rating: 4.6, reviews: 345, image: "/images/product-7.jpg", discount: 25 },
-    { id: 8, name: "Aviator Sunglasses", category: "Accessories", price: 799, rating: 4.7, reviews: 456, image: "/images/product-8.jpg", discount: 30 },
-    { id: 9, name: "Floral Maxi Skirt", category: "Women's", price: 1199, rating: 4.5, reviews: 234, image: "/images/product-9.jpg", discount: 20 },
-    { id: 10, name: "Kids Denim Overalls", category: "Kids", price: 899, rating: 4.8, reviews: 567, image: "/images/product-10.jpg", discount: 35 },
-    { id: 11, name: "Chelsea Boots", category: "Footwear", price: 2499, rating: 4.9, reviews: 678, image: "/images/product-11.jpg", discount: 40 },
-    { id: 12, name: "Hoop Earrings", category: "Accessories", price: 499, rating: 4.7, reviews: 456, image: "/images/product-12.jpg", discount: 30 },
-    { id: 13, name: "Kids Hoodie", category: "Kids", price: 699, rating: 4.7, reviews: 345, image: "/images/product-13.jpg", discount: 25 },
-    { id: 14, name: "Silk Pocket Square", category: "Accessories", price: 399, rating: 4.4, reviews: 189, image: "/images/product-14.jpg", discount: 15 },
-    { id: 15, name: "Platform Sandals", category: "Footwear", price: 1299, rating: 4.5, reviews: 234, image: "/images/product-15.jpg", discount: 20 },
-    { id: 16, name: "Pearl Hair Clips", category: "Accessories", price: 349, rating: 4.8, reviews: 567, image: "/images/product-16.jpg", discount: 35 },
-    { id: 17, name: "Glow Serum", category: "Beauty", price: 799, rating: 4.8, reviews: 456, image: "/images/product-17.jpg", discount: 30 },
-    { id: 18, name: "Summer Dress", category: "Women's", price: 1399, rating: 4.6, reviews: 345, image: "/images/product-1.jpg", discount: 25 },
-    { id: 19, name: "Graphic Tee", category: "Women's", price: 649, rating: 4.5, reviews: 234, image: "/images/product-2.jpg", discount: 20 },
-    { id: 20, name: "Formal Blouse", category: "Women's", price: 999, rating: 4.7, reviews: 456, image: "/images/product-3.jpg", discount: 30 },
-    { id: 21, name: "Round Sunglasses", category: "Accessories", price: 899, rating: 4.6, reviews: 345, image: "/images/product-4.jpg", discount: 25 },
-    { id: 22, name: "Knit Cardigan", category: "Women's", price: 1499, rating: 4.8, reviews: 567, image: "/images/product-5.jpg", discount: 35 },
-    { id: 23, name: "Cropped Jacket", category: "Women's", price: 1799, rating: 4.7, reviews: 456, image: "/images/product-6.jpg", discount: 30 },
-    { id: 24, name: "Palazzo Pants", category: "Women's", price: 1099, rating: 4.5, reviews: 234, image: "/images/product-9.jpg", discount: 20 },
-    { id: 25, name: "Midi Dress", category: "Women's", price: 1599, rating: 4.9, reviews: 678, image: "/images/product-1.jpg", discount: 40 },
+    // Product 2 - Black T-Shirt
+    { id: 4, name: "Black Cotton T-Shirt", category: "Men's", price: 599, rating: 4.5, reviews: 523, image: "/images/product-2.jpg", discount: 20 },
+    { id: 5, name: "Black Casual Tee", category: "Men's", price: 649, rating: 4.4, reviews: 412, image: "/images/product-2.jpg", discount: 18 },
+    { id: 6, name: "Black Round Neck T-Shirt", category: "Men's", price: 699, rating: 4.6, reviews: 378, image: "/images/product-2.jpg", discount: 22 },
     
-    // Men's Fashion (25 items)
-    { id: 26, name: "Slim Fit Blazer", category: "Men's", price: 2999, rating: 4.7, reviews: 456, image: "/images/product-2.jpg", discount: 30 },
-    { id: 27, name: "Cotton T-Shirt", category: "Men's", price: 599, rating: 4.5, reviews: 234, image: "/images/product-2.jpg", discount: 20 },
-    { id: 28, name: "Formal Shirt", category: "Men's", price: 899, rating: 4.6, reviews: 345, image: "/images/product-3.jpg", discount: 25 },
-    { id: 29, name: "Chino Trousers", category: "Men's", price: 1199, rating: 4.6, reviews: 345, image: "/images/product-7.jpg", discount: 25 },
-    { id: 30, name: "Denim Jeans", category: "Men's", price: 1299, rating: 4.7, reviews: 456, image: "/images/product-6.jpg", discount: 30 },
-    { id: 31, name: "Polo Shirt", category: "Men's", price: 749, rating: 4.7, reviews: 312, image: "/images/product-2.jpg", discount: 30 },
-    { id: 32, name: "Hoodie", category: "Men's", price: 1499, rating: 4.9, reviews: 678, image: "/images/product-13.jpg", discount: 40 },
-    { id: 33, name: "Leather Belt", category: "Accessories", price: 499, rating: 4.3, reviews: 123, image: "/images/product-14.jpg", discount: 10 },
-    { id: 34, name: "Track Pants", category: "Men's", price: 899, rating: 4.6, reviews: 345, image: "/images/product-7.jpg", discount: 25 },
-    { id: 35, name: "Bomber Jacket", category: "Men's", price: 2499, rating: 4.8, reviews: 567, image: "/images/product-6.jpg", discount: 35 },
-    { id: 36, name: "V-Neck Sweater", category: "Men's", price: 1199, rating: 4.5, reviews: 234, image: "/images/product-5.jpg", discount: 20 },
-    { id: 37, name: "Cargo Shorts", category: "Men's", price: 799, rating: 4.4, reviews: 189, image: "/images/product-7.jpg", discount: 15 },
-    { id: 38, name: "Dress Pants", category: "Men's", price: 1399, rating: 4.7, reviews: 456, image: "/images/product-7.jpg", discount: 30 },
-    { id: 39, name: "Windbreaker", category: "Men's", price: 1799, rating: 4.5, reviews: 234, image: "/images/product-6.jpg", discount: 20 },
-    { id: 40, name: "Henley Shirt", category: "Men's", price: 699, rating: 4.4, reviews: 189, image: "/images/product-2.jpg", discount: 15 },
-    { id: 41, name: "Joggers", category: "Men's", price: 999, rating: 4.6, reviews: 345, image: "/images/product-7.jpg", discount: 25 },
-    { id: 42, name: "Puffer Jacket", category: "Men's", price: 3499, rating: 4.9, reviews: 678, image: "/images/product-6.jpg", discount: 40 },
-    { id: 43, name: "Linen Shirt", category: "Men's", price: 1099, rating: 4.7, reviews: 456, image: "/images/product-3.jpg", discount: 30 },
-    { id: 44, name: "Sweatshirt", category: "Men's", price: 1299, rating: 4.6, reviews: 345, image: "/images/product-13.jpg", discount: 25 },
-    { id: 45, name: "Formal Suit", category: "Men's", price: 4999, rating: 4.9, reviews: 789, image: "/images/product-2.jpg", discount: 45 },
-    { id: 46, name: "Casual Shirt", category: "Men's", price: 849, rating: 4.5, reviews: 234, image: "/images/product-3.jpg", discount: 20 },
-    { id: 47, name: "Sports Jacket", category: "Men's", price: 2199, rating: 4.8, reviews: 567, image: "/images/product-6.jpg", discount: 35 },
-    { id: 48, name: "Dress Shirt", category: "Men's", price: 999, rating: 4.6, reviews: 345, image: "/images/product-3.jpg", discount: 25 },
-    { id: 49, name: "Cardigan", category: "Men's", price: 1399, rating: 4.7, reviews: 456, image: "/images/product-5.jpg", discount: 30 },
-    { id: 50, name: "Trench Coat", category: "Men's", price: 3999, rating: 4.9, reviews: 678, image: "/images/product-6.jpg", discount: 40 },
+    // Product 3 - Formal Shirt
+    { id: 7, name: "White Formal Shirt", category: "Men's", price: 899, rating: 4.6, reviews: 567, image: "/images/product-3.jpg", discount: 30 },
+    { id: 8, name: "Blue Formal Shirt", category: "Men's", price: 949, rating: 4.5, reviews: 423, image: "/images/product-3.jpg", discount: 28 },
+    { id: 9, name: "Light Blue Office Shirt", category: "Men's", price: 849, rating: 4.4, reviews: 312, image: "/images/product-3.jpg", discount: 24 },
     
-    // Footwear (20 items)
-    { id: 51, name: "Running Shoes", category: "Footwear", price: 1999, rating: 4.7, reviews: 456, image: "/images/product-11.jpg", discount: 30 },
-    { id: 52, name: "Sneakers", category: "Footwear", price: 1499, rating: 4.6, reviews: 345, image: "/images/product-11.jpg", discount: 25 },
-    { id: 53, name: "Formal Shoes", category: "Footwear", price: 2499, rating: 4.8, reviews: 567, image: "/images/product-11.jpg", discount: 35 },
-    { id: 54, name: "Sandals", category: "Footwear", price: 899, rating: 4.5, reviews: 234, image: "/images/product-15.jpg", discount: 20 },
-    { id: 55, name: "High Heels", category: "Footwear", price: 1799, rating: 4.7, reviews: 456, image: "/images/product-15.jpg", discount: 30 },
-    { id: 56, name: "Flip Flops", category: "Footwear", price: 299, rating: 4.3, reviews: 123, image: "/images/product-15.jpg", discount: 10 },
-    { id: 57, name: "Leather Boots", category: "Footwear", price: 2999, rating: 4.9, reviews: 678, image: "/images/product-11.jpg", discount: 40 },
-    { id: 58, name: "Loafers", category: "Footwear", price: 1599, rating: 4.6, reviews: 345, image: "/images/product-11.jpg", discount: 25 },
-    { id: 59, name: "Canvas Shoes", category: "Footwear", price: 899, rating: 4.5, reviews: 234, image: "/images/product-11.jpg", discount: 20 },
-    { id: 60, name: "Ankle Boots", category: "Footwear", price: 2199, rating: 4.8, reviews: 567, image: "/images/product-11.jpg", discount: 35 },
-    { id: 61, name: "Slip-Ons", category: "Footwear", price: 1299, rating: 4.6, reviews: 345, image: "/images/product-11.jpg", discount: 25 },
-    { id: 62, name: "Ballet Flats", category: "Footwear", price: 999, rating: 4.5, reviews: 234, image: "/images/product-15.jpg", discount: 20 },
-    { id: 63, name: "Oxford Shoes", category: "Footwear", price: 2299, rating: 4.7, reviews: 456, image: "/images/product-11.jpg", discount: 30 },
-    { id: 64, name: "Wedges", category: "Footwear", price: 1499, rating: 4.6, reviews: 345, image: "/images/product-15.jpg", discount: 25 },
-    { id: 65, name: "Hiking Boots", category: "Footwear", price: 3499, rating: 4.9, reviews: 678, image: "/images/product-11.jpg", discount: 40 },
-    { id: 66, name: "Espadrilles", category: "Footwear", price: 1199, rating: 4.5, reviews: 234, image: "/images/product-15.jpg", discount: 20 },
-    { id: 67, name: "Moccasins", category: "Footwear", price: 1399, rating: 4.6, reviews: 345, image: "/images/product-11.jpg", discount: 25 },
-    { id: 68, name: "Platform Heels", category: "Footwear", price: 1799, rating: 4.7, reviews: 456, image: "/images/product-15.jpg", discount: 30 },
-    { id: 69, name: "Boat Shoes", category: "Footwear", price: 1599, rating: 4.6, reviews: 345, image: "/images/product-11.jpg", discount: 25 },
-    { id: 70, name: "Winter Boots", category: "Footwear", price: 2799, rating: 4.8, reviews: 567, image: "/images/product-11.jpg", discount: 35 },
+    // Product 4 - Sunglasses/Accessories
+    { id: 10, name: "Black Aviator Sunglasses", category: "Accessories", price: 999, rating: 4.7, reviews: 678, image: "/images/product-4.jpg", discount: 35 },
+    { id: 11, name: "Classic Black Sunglasses", category: "Accessories", price: 899, rating: 4.6, reviews: 534, image: "/images/product-4.jpg", discount: 30 },
+    { id: 12, name: "Polarized Sunglasses", category: "Accessories", price: 799, rating: 4.5, reviews: 445, image: "/images/product-4.jpg", discount: 28 },
     
-    // Accessories & Electronics (30 items)
-    { id: 71, name: "Wireless Earbuds", category: "Electronics", price: 2999, rating: 4.8, reviews: 789, image: "/images/product-4.jpg", discount: 35 },
-    { id: 72, name: "Smart Watch", category: "Electronics", price: 4999, rating: 4.7, reviews: 567, image: "/images/product-4.jpg", discount: 30 },
-    { id: 73, name: "Bluetooth Speaker", category: "Electronics", price: 1999, rating: 4.6, reviews: 456, image: "/images/product-4.jpg", discount: 25 },
-    { id: 74, name: "Power Bank", category: "Electronics", price: 1499, rating: 4.5, reviews: 345, image: "/images/product-4.jpg", discount: 20 },
-    { id: 75, name: "Phone Case", category: "Electronics", price: 299, rating: 4.4, reviews: 234, image: "/images/product-4.jpg", discount: 15 },
-    { id: 76, name: "Laptop Bag", category: "Accessories", price: 1299, rating: 4.7, reviews: 456, image: "/images/product-14.jpg", discount: 30 },
-    { id: 77, name: "USB Cable", category: "Electronics", price: 199, rating: 4.3, reviews: 123, image: "/images/product-4.jpg", discount: 10 },
-    { id: 78, name: "Wireless Mouse", category: "Electronics", price: 599, rating: 4.6, reviews: 345, image: "/images/product-4.jpg", discount: 25 },
-    { id: 79, name: "Keyboard", category: "Electronics", price: 2499, rating: 4.8, reviews: 567, image: "/images/product-4.jpg", discount: 35 },
-    { id: 80, name: "Webcam", category: "Electronics", price: 1999, rating: 4.7, reviews: 456, image: "/images/product-4.jpg", discount: 30 },
-    { id: 81, name: "Leather Wallet", category: "Accessories", price: 799, rating: 4.6, reviews: 345, image: "/images/product-14.jpg", discount: 25 },
-    { id: 82, name: "Designer Sunglasses", category: "Accessories", price: 999, rating: 4.7, reviews: 456, image: "/images/product-8.jpg", discount: 30 },
-    { id: 83, name: "Wrist Watch", category: "Accessories", price: 1999, rating: 4.8, reviews: 567, image: "/images/product-4.jpg", discount: 35 },
-    { id: 84, name: "Backpack", category: "Accessories", price: 1499, rating: 4.5, reviews: 234, image: "/images/product-14.jpg", discount: 20 },
-    { id: 85, name: "Handbag", category: "Accessories", price: 1799, rating: 4.9, reviews: 678, image: "/images/product-14.jpg", discount: 40 },
-    { id: 86, name: "Scarf", category: "Accessories", price: 399, rating: 4.4, reviews: 189, image: "/images/product-16.jpg", discount: 15 },
-    { id: 87, name: "Baseball Cap", category: "Accessories", price: 299, rating: 4.3, reviews: 123, image: "/images/product-16.jpg", discount: 10 },
-    { id: 88, name: "Silk Tie", category: "Accessories", price: 499, rating: 4.5, reviews: 234, image: "/images/product-14.jpg", discount: 20 },
-    { id: 89, name: "Bow Tie", category: "Accessories", price: 399, rating: 4.4, reviews: 189, image: "/images/product-14.jpg", discount: 15 },
-    { id: 90, name: "Cufflinks", category: "Accessories", price: 599, rating: 4.6, reviews: 345, image: "/images/product-12.jpg", discount: 25 },
-    { id: 91, name: "Gold Bracelet", category: "Accessories", price: 899, rating: 4.7, reviews: 456, image: "/images/product-12.jpg", discount: 30 },
-    { id: 92, name: "Silver Necklace", category: "Accessories", price: 1299, rating: 4.8, reviews: 567, image: "/images/product-12.jpg", discount: 35 },
-    { id: 93, name: "Diamond Earrings", category: "Accessories", price: 699, rating: 4.6, reviews: 345, image: "/images/product-12.jpg", discount: 25 },
-    { id: 94, name: "Fashion Ring", category: "Accessories", price: 999, rating: 4.7, reviews: 456, image: "/images/product-12.jpg", discount: 30 },
-    { id: 95, name: "Designer Belt", category: "Accessories", price: 599, rating: 4.5, reviews: 234, image: "/images/product-14.jpg", discount: 20 },
-    { id: 96, name: "Winter Gloves", category: "Accessories", price: 499, rating: 4.4, reviews: 189, image: "/images/product-16.jpg", discount: 15 },
-    { id: 97, name: "Fedora Hat", category: "Accessories", price: 699, rating: 4.6, reviews: 345, image: "/images/product-16.jpg", discount: 25 },
-    { id: 98, name: "Wool Beanie", category: "Accessories", price: 399, rating: 4.5, reviews: 234, image: "/images/product-16.jpg", discount: 20 },
-    { id: 99, name: "Evening Clutch", category: "Accessories", price: 1199, rating: 4.7, reviews: 456, image: "/images/product-14.jpg", discount: 30 },
-    { id: 100, name: "Canvas Tote", category: "Accessories", price: 999, rating: 4.6, reviews: 345, image: "/images/product-14.jpg", discount: 25 },
+    // Product 5 - Sweater/Cardigan
+    { id: 13, name: "Grey Wool Sweater", category: "Women's", price: 1499, rating: 4.8, reviews: 423, image: "/images/product-5.jpg", discount: 35 },
+    { id: 14, name: "Beige Knit Cardigan", category: "Women's", price: 1299, rating: 4.6, reviews: 356, image: "/images/product-5.jpg", discount: 30 },
+    { id: 15, name: "Cozy Winter Sweater", category: "Women's", price: 1399, rating: 4.7, reviews: 489, image: "/images/product-5.jpg", discount: 32 },
+    
+    // Product 6 - Denim/Leather Jacket
+    { id: 16, name: "Black Denim Jacket", category: "Men's", price: 1999, rating: 4.8, reviews: 612, image: "/images/product-6.jpg", discount: 38 },
+    { id: 17, name: "Blue Denim Jacket", category: "Men's", price: 1899, rating: 4.7, reviews: 534, image: "/images/product-6.jpg", discount: 35 },
+    { id: 18, name: "Classic Denim Jacket", category: "Men's", price: 1799, rating: 4.6, reviews: 445, image: "/images/product-6.jpg", discount: 32 },
+    
+    // Product 7 - Pants/Trousers
+    { id: 19, name: "Beige Chino Pants", category: "Men's", price: 1099, rating: 4.5, reviews: 467, image: "/images/product-7.jpg", discount: 25 },
+    { id: 20, name: "Black Formal Trousers", category: "Men's", price: 1299, rating: 4.6, reviews: 523, image: "/images/product-7.jpg", discount: 28 },
+    { id: 21, name: "Navy Blue Pants", category: "Men's", price: 1199, rating: 4.5, reviews: 412, image: "/images/product-7.jpg", discount: 26 },
+    
+    // Product 8 - Sunglasses (Brown/Wayfarer style)
+    { id: 22, name: "Brown Wayfarer Sunglasses", category: "Accessories", price: 899, rating: 4.6, reviews: 534, image: "/images/product-8.jpg", discount: 30 },
+    { id: 23, name: "Tortoise Frame Sunglasses", category: "Accessories", price: 799, rating: 4.5, reviews: 445, image: "/images/product-8.jpg", discount: 28 },
+    
+    // Product 9 - Skirt
+    { id: 24, name: "Black Pencil Skirt", category: "Women's", price: 999, rating: 4.5, reviews: 334, image: "/images/product-9.jpg", discount: 24 },
+    { id: 25, name: "Formal Black Skirt", category: "Women's", price: 1199, rating: 4.6, reviews: 412, image: "/images/product-9.jpg", discount: 28 },
+    { id: 26, name: "Office Wear Skirt", category: "Women's", price: 899, rating: 4.4, reviews: 289, image: "/images/product-9.jpg", discount: 20 },
+    
+    // Product 10 - Kids Wear
+    { id: 27, name: "Kids Denim Overalls", category: "Kids", price: 899, rating: 4.7, reviews: 456, image: "/images/product-10.jpg", discount: 30 },
+    { id: 28, name: "Kids Casual Outfit", category: "Kids", price: 799, rating: 4.6, reviews: 378, image: "/images/product-10.jpg", discount: 25 },
+    
+    // Product 11 - Boots/Formal Shoes
+    { id: 29, name: "Brown Leather Boots", category: "Footwear", price: 2999, rating: 4.8, reviews: 645, image: "/images/product-11.jpg", discount: 38 },
+    { id: 30, name: "Black Chelsea Boots", category: "Footwear", price: 2799, rating: 4.7, reviews: 567, image: "/images/product-11.jpg", discount: 35 },
+    { id: 31, name: "Tan Ankle Boots", category: "Footwear", price: 2499, rating: 4.6, reviews: 489, image: "/images/product-11.jpg", discount: 32 },
+    { id: 32, name: "Black Formal Shoes", category: "Footwear", price: 2299, rating: 4.7, reviews: 534, image: "/images/product-11.jpg", discount: 30 },
+    
+    // Product 12 - Jewelry/Accessories
+    { id: 33, name: "Gold Hoop Earrings", category: "Accessories", price: 699, rating: 4.7, reviews: 523, image: "/images/product-12.jpg", discount: 30 },
+    { id: 34, name: "Silver Necklace Set", category: "Accessories", price: 1299, rating: 4.8, reviews: 612, image: "/images/product-12.jpg", discount: 35 },
+    { id: 35, name: "Pearl Bracelet", category: "Accessories", price: 899, rating: 4.6, reviews: 445, image: "/images/product-12.jpg", discount: 28 },
+    
+    // Product 13 - Hoodie/Sweatshirt
+    { id: 36, name: "Grey Cotton Hoodie", category: "Men's", price: 1299, rating: 4.7, reviews: 589, image: "/images/product-13.jpg", discount: 32 },
+    { id: 37, name: "Black Pullover Hoodie", category: "Men's", price: 1399, rating: 4.8, reviews: 645, image: "/images/product-13.jpg", discount: 35 },
+    { id: 38, name: "Navy Blue Hoodie", category: "Men's", price: 1499, rating: 4.6, reviews: 512, image: "/images/product-13.jpg", discount: 30 },
+    
+    // Product 14 - Bags/Wallets/Belts
+    { id: 39, name: "Brown Leather Wallet", category: "Accessories", price: 799, rating: 4.6, reviews: 467, image: "/images/product-14.jpg", discount: 25 },
+    { id: 40, name: "Black Leather Belt", category: "Accessories", price: 599, rating: 4.5, reviews: 389, image: "/images/product-14.jpg", discount: 22 },
+    { id: 41, name: "Canvas Backpack", category: "Accessories", price: 1299, rating: 4.7, reviews: 534, image: "/images/product-14.jpg", discount: 30 },
+    
+    // Product 15 - Sandals/Heels
+    { id: 42, name: "Brown Leather Sandals", category: "Footwear", price: 1299, rating: 4.5, reviews: 423, image: "/images/product-15.jpg", discount: 26 },
+    { id: 43, name: "Black High Heels", category: "Footwear", price: 1799, rating: 4.7, reviews: 534, image: "/images/product-15.jpg", discount: 32 },
+    { id: 44, name: "Beige Wedge Sandals", category: "Footwear", price: 1499, rating: 4.6, reviews: 456, image: "/images/product-15.jpg", discount: 28 },
+    
+    // Product 16 - Hats/Caps
+    { id: 45, name: "Black Baseball Cap", category: "Accessories", price: 399, rating: 4.4, reviews: 312, image: "/images/product-16.jpg", discount: 20 },
+    { id: 46, name: "Brown Fedora Hat", category: "Accessories", price: 699, rating: 4.6, reviews: 423, image: "/images/product-16.jpg", discount: 25 },
+    { id: 47, name: "Grey Wool Beanie", category: "Accessories", price: 499, rating: 4.5, reviews: 356, image: "/images/product-16.jpg", discount: 22 },
+    
+    // Product 17 - Beauty/Cosmetics
+    { id: 48, name: "Vitamin C Face Serum", category: "Beauty", price: 799, rating: 4.8, reviews: 612, image: "/images/product-17.jpg", discount: 35 },
+    { id: 49, name: "Hydrating Face Cream", category: "Beauty", price: 699, rating: 4.7, reviews: 534, image: "/images/product-17.jpg", discount: 30 },
+    { id: 50, name: "Anti-Aging Night Cream", category: "Beauty", price: 899, rating: 4.6, reviews: 478, image: "/images/product-17.jpg", discount: 28 },
 ];
 
 export const getAllProducts = () => allProductsData;

@@ -17,6 +17,9 @@ import OrderTracking from './components/OrderTracking';
 import UserDashboard from './components/UserDashboard';
 import ProductComparison from './components/ProductComparison';
 import LocationModal from './components/LocationModal';
+import CustomPrintDesigner from './components/CustomPrintDesigner';
+import CustomizationSection from './components/CustomizationSection';
+import AdminDashboard from './components/AdminDashboard';
 import './styles/App.css';
 
 function App() {
@@ -64,6 +67,10 @@ function App() {
         return saved ? JSON.parse(saved) : { city: 'Mumbai', pincode: '400001' };
     });
     const [showLocationModal, setShowLocationModal] = useState(false);
+    const [showCustomDesigner, setShowCustomDesigner] = useState(false);
+    const [customizingProduct, setCustomizingProduct] = useState(null);
+    const [showCustomizationSection, setShowCustomizationSection] = useState(false);
+    const [showAdminPanel, setShowAdminPanel] = useState(false);
 
     // Fetch products from backend
     useEffect(() => {
@@ -207,12 +214,27 @@ function App() {
     };
 
     const handleNavigation = (navItem) => {
+        if (navItem === 'home') {
+            setShowCustomizationSection(false);
+            setNavigationFilter('All');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+        
+        setShowCustomizationSection(false);
         setNavigationFilter(navItem);
         window.scrollTo({ top: 400, behavior: 'smooth' });
         showToast(`Showing ${navItem} items`, 'success');
     };
 
     const handlePanelClick = (panelItem) => {
+        if (panelItem === 'customize') {
+            setShowCustomizationSection(true);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showToast('Welcome to Custom Print Studio! 🎨', 'success');
+            return;
+        }
+        
         if (panelItem === 'trending' || panelItem === 'bestsellers') {
             setSortBy('popular');
         } else if (panelItem === 'new-arrivals') {
@@ -221,6 +243,7 @@ function App() {
             // Can add a discount filter later, for now set sort by price
             setSortBy('price-low');
         }
+        setShowCustomizationSection(false);
         showToast(`Viewing ${panelItem.replace('-', ' ')} collection`, 'success');
         window.scrollTo({ top: 600, behavior: 'smooth' });
     };
@@ -328,13 +351,44 @@ function App() {
             showToast('Please login to view dashboard', 'error');
             return;
         }
-        setShowDashboard(true);
+        
+        // Check if user is admin
+        if (user.role === 'admin') {
+            setShowAdminPanel(true);
+        } else {
+            setShowDashboard(true);
+        }
     };
 
     const handleUpdateLocation = (newLocation) => {
         setUserLocation(newLocation);
         setShowLocationModal(false);
         showToast(`Location updated to ${newLocation.city}`, 'success');
+    };
+
+    const handleCustomizeProduct = (product) => {
+        setCustomizingProduct(product);
+        setShowCustomDesigner(true);
+    };
+
+    const handleSaveCustomDesign = (designData) => {
+        // Create a customized product with design data
+        const customizedProduct = {
+            ...customizingProduct,
+            id: `${customizingProduct.id}-custom-${Date.now()}`,
+            name: `${customizingProduct.name} (Custom Print)`,
+            customDesign: designData,
+            isCustomized: true
+        };
+
+        // Add to cart
+        handleAddToCart(customizedProduct);
+        
+        // Close designer
+        setShowCustomDesigner(false);
+        setCustomizingProduct(null);
+        
+        showToast('Custom design saved and added to cart!', 'success');
     };
 
     // Save orders to localStorage
@@ -361,7 +415,19 @@ function App() {
 
     return (
         <div className="App">
-            <Navbar
+            {showAdminPanel ? (
+                <AdminDashboard
+                    user={user}
+                    onClose={() => setShowAdminPanel(false)}
+                    onLogout={() => {
+                        setUser(null);
+                        setShowAdminPanel(false);
+                        showToast('Logged out successfully', 'success');
+                    }}
+                />
+            ) : (
+                <>
+                    <Navbar
                 cartCount={cartItems.length}
                 wishlistCount={wishlistItems.length}
                 darkMode={darkMode}
@@ -386,44 +452,50 @@ function App() {
 
             <HeroSection />
 
-            <CategorySection
-                categories={categories}
-                selectedCategory={selectedCategory}
-                onCategorySelect={setSelectedCategory}
-            />
-
-            {loading ? (
-                <div style={{ 
-                    textAlign: 'center', 
-                    padding: '100px 20px',
-                    fontSize: '1.5rem',
-                    color: darkMode ? '#fff' : '#333'
-                }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '20px' }}>⏳</div>
-                    <p>Loading products...</p>
-                    <p style={{ fontSize: '1rem', color: '#666', marginTop: '10px' }}>
-                        Fetching {products.length > 0 ? products.length : 'all'} products from database
-                    </p>
-                </div>
+            {showCustomizationSection ? (
+                <CustomizationSection onCustomize={handleCustomizeProduct} />
             ) : (
-                <div className="main-content">
-                    <Sidebar
-                        priceRange={priceRange}
-                        onPriceChange={setPriceRange}
+                <>
+                    <CategorySection
+                        categories={categories}
+                        selectedCategory={selectedCategory}
+                        onCategorySelect={setSelectedCategory}
                     />
 
-                    <ProductsGrid
-                        products={filteredProducts}
-                        onViewDetails={setSelectedProduct}
-                        onAddToCart={handleAddToCart}
-                        wishlistItems={wishlistItems}
-                        onToggleWishlist={handleToggleWishlist}
-                        comparisonProducts={comparisonProducts}
-                        onToggleComparison={handleToggleComparison}
-                        sortBy={sortBy}
-                        onSortChange={setSortBy}
-                    />
-                </div>
+                    {loading ? (
+                        <div style={{ 
+                            textAlign: 'center', 
+                            padding: '100px 20px',
+                            fontSize: '1.5rem',
+                            color: darkMode ? '#fff' : '#333'
+                        }}>
+                            <div style={{ fontSize: '3rem', marginBottom: '20px' }}>⏳</div>
+                            <p>Loading products...</p>
+                            <p style={{ fontSize: '1rem', color: '#666', marginTop: '10px' }}>
+                                Fetching {products.length > 0 ? products.length : 'all'} products from database
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="main-content">
+                            <Sidebar
+                                priceRange={priceRange}
+                                onPriceChange={setPriceRange}
+                            />
+
+                            <ProductsGrid
+                                products={filteredProducts}
+                                onViewDetails={setSelectedProduct}
+                                onAddToCart={handleAddToCart}
+                                wishlistItems={wishlistItems}
+                                onToggleWishlist={handleToggleWishlist}
+                                comparisonProducts={comparisonProducts}
+                                onToggleComparison={handleToggleComparison}
+                                sortBy={sortBy}
+                                onSortChange={setSortBy}
+                            />
+                        </div>
+                    )}
+                </>
             )}
 
             <Footer />
@@ -522,6 +594,17 @@ function App() {
                 />
             )}
 
+            {showCustomDesigner && customizingProduct && (
+                <CustomPrintDesigner
+                    product={customizingProduct}
+                    onClose={() => {
+                        setShowCustomDesigner(false);
+                        setCustomizingProduct(null);
+                    }}
+                    onSaveDesign={handleSaveCustomDesign}
+                />
+            )}
+
             {/* Toast */}
             {toast && (
                 <Toast
@@ -529,6 +612,8 @@ function App() {
                     type={toast.type}
                     onClose={() => setToast(null)}
                 />
+            )}
+                </>
             )}
         </div>
     );

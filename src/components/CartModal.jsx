@@ -26,11 +26,41 @@ const CartModal = ({ cartItems, onClose, onRemoveItem, onUpdateQuantity, onCheck
                     ) : (
                         cartItems.map(item => (
                             <div key={item.id} className="cart-item">
-                                <div className="cart-item-image">
+                                <div className="cart-item-image" style={{ position: 'relative' }}>
                                     <img src={item.image} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
+                                    {item.isCustomized && (
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: '5px',
+                                            right: '5px',
+                                            background: '#ffc107',
+                                            color: '#000',
+                                            padding: '3px 8px',
+                                            borderRadius: '4px',
+                                            fontSize: '11px',
+                                            fontWeight: 'bold'
+                                        }}>
+                                            🎨 Custom
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="cart-item-details">
                                     <div className="cart-item-name">{item.name}</div>
+                                    {item.isCustomized && item.customDesign && (
+                                        <div style={{
+                                            fontSize: '11px',
+                                            color: '#666',
+                                            marginTop: '5px',
+                                            padding: '5px',
+                                            background: '#f9f9f9',
+                                            borderRadius: '4px'
+                                        }}>
+                                            <strong>Custom Design:</strong>
+                                            {item.customDesign.type === 'upload' && ' Uploaded Image'}
+                                            {item.customDesign.type === 'template' && ` Template: ${item.customDesign.template?.name}`}
+                                            {item.customDesign.type === 'text' && ` Text: "${item.customDesign.text?.substring(0, 20)}${item.customDesign.text?.length > 20 ? '...' : ''}"`}
+                                        </div>
+                                    )}
                                     <div className="cart-item-price">₹{item.price.toFixed(2)}</div>
                                     <div className="cart-quantity">
                                         <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}>−</button>

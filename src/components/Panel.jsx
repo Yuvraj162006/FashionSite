@@ -8,6 +8,7 @@ const Panel = ({ onPanelClick }) => {
                 All Categories
             </div>
             <div className="panel-ops">
+                <p onClick={() => onPanelClick('customize')} style={{ fontWeight: 'bold', color: '#ff9900' }}>🎨 Customize Products</p>
                 <p onClick={() => onPanelClick('trending')}>🔥 Trending Now</p>
                 <p onClick={() => onPanelClick('new-arrivals')}>✨ New Arrivals</p>
                 <p onClick={() => onPanelClick('bestsellers')}>⭐ Best Sellers</p>

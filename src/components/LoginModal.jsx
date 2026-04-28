@@ -3,15 +3,63 @@ import React, { useState } from 'react';
 const LoginModal = ({ onClose, onLogin }) => {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const userData = {
-            name: isLogin ? (email.split('@')[0] || 'User') : name,
-            email: email
-        };
-        if (onLogin) onLogin(userData);
+        setError('');
+        setLoading(true);
+
+        try {
+            const url = isLogin 
+                ? 'http://localhost:5000/api/auth/login'
+                : 'http://localhost:5000/api/auth/register';
+
+            const body = isLogin
+                ? { email, password }
+                : { name, email, password };
+
+            console.log('🔐 Attempting login...', { email, url });
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            });
+
+            console.log('📡 Response status:', response.status);
+
+            const data = await response.json();
+            console.log('📦 Response data:', data);
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Authentication failed');
+            }
+
+            // Store token
+            localStorage.setItem('token', data.data.token);
+            console.log('✅ Token stored successfully');
+
+            // Pass user data to parent
+            if (onLogin) {
+                onLogin({
+                    _id: data.data._id,
+                    name: data.data.name,
+                    email: data.data.email,
+                    role: data.data.role,
+                });
+            }
+        } catch (err) {
+            console.error('❌ Login error:', err);
+            setError(err.message || 'Failed to connect to server. Please ensure backend is running on port 5000.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -22,24 +70,67 @@ const LoginModal = ({ onClose, onLogin }) => {
                     <button className="modal-close" onClick={onClose}>&times;</button>
                 </div>
                 
+                {error && (
+                    <div style={{
+                        padding: '12px',
+                        background: '#ffebee',
+                        color: '#c62828',
+                        borderRadius: '4px',
+                        marginBottom: '15px',
+                        fontSize: '0.9rem'
+                    }}>
+                        {error}
+                    </div>
+                )}
+
                 <form className="login-form" onSubmit={handleSubmit}>
                     {!isLogin && (
                         <div style={{ marginBottom: '15px' }}>
                             <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '0.9rem' }}>Your name</label>
-                            <input type="text" placeholder="First and last name" value={name} onChange={e => setName(e.target.value)} required={!isLogin} style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #a6a6a6' }} />
+                            <input 
+                                type="text" 
+                                placeholder="First and last name" 
+                                value={name} 
+                                onChange={e => setName(e.target.value)} 
+                                required={!isLogin} 
+                                style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #a6a6a6' }} 
+                            />
                         </div>
                     )}
                     <div style={{ marginBottom: '15px' }}>
-                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '0.9rem' }}>Email or mobile phone number</label>
-                        <input type="email" value={email} onChange={e => setEmail(e.target.value)} required style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #a6a6a6' }} />
+                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '0.9rem' }}>Email</label>
+                        <input 
+                            type="email" 
+                            value={email} 
+                            onChange={e => setEmail(e.target.value)} 
+                            required 
+                            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #a6a6a6' }} 
+                        />
                     </div>
                     <div style={{ marginBottom: '20px' }}>
                         <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '0.9rem' }}>Password</label>
-                        <input type="password" required style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #a6a6a6' }} />
+                        <input 
+                            type="password" 
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            required 
+                            minLength="6"
+                            style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #a6a6a6' }} 
+                        />
+                        {!isLogin && (
+                            <small style={{ color: '#666', fontSize: '0.8rem' }}>
+                                Password must be at least 6 characters
+                            </small>
+                        )}
                     </div>
                     
-                    <button type="submit" className="checkout-btn" style={{ marginBottom: '15px' }}>
-                        {isLogin ? 'Continue' : 'Verify email'}
+                    <button 
+                        type="submit" 
+                        className="checkout-btn" 
+                        style={{ marginBottom: '15px' }}
+                        disabled={loading}
+                    >
+                        {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
                     </button>
                     
                     <p style={{ fontSize: '0.8rem', color: '#555', marginBottom: '20px' }}>
@@ -48,21 +139,65 @@ const LoginModal = ({ onClose, onLogin }) => {
                     
                     {isLogin ? (
                         <>
-                            <div style={{ textAlign: 'center', margin: '15px 0', position: 'relative' }}>
-                                <hr style={{ borderTop: '1px solid #e7e7e7', margin: '0' }} />
-                                <span style={{ backgroundColor: 'white', padding: '0 10px', position: 'relative', top: '-10px', fontSize: '0.85rem', color: '#767676' }}>New to FashionHub?</span>
+                            <div style={{ textAlign: 'center', marginTop: '20px', paddingTop: '20px', borderTop: '1px solid #e7e7e7' }}>
+                                <p style={{ fontSize: '0.85rem', marginBottom: '10px' }}>New to FashionHub?</p>
+                                <button 
+                                    type="button"
+                                    onClick={() => {
+                                        setIsLogin(false);
+                                        setError('');
+                                    }}
+                                    style={{
+                                        width: '100%',
+                                        padding: '10px',
+                                        background: '#f0f0f0',
+                                        border: '1px solid #a6a6a6',
+                                        borderRadius: '4px',
+                                        cursor: 'pointer',
+                                        fontSize: '0.9rem'
+                                    }}
+                                >
+                                    Create your FashionHub account
+                                </button>
                             </div>
-                            <button 
-                                type="button" 
-                                onClick={() => setIsLogin(false)}
-                                style={{ width: '100%', padding: '10px', backgroundColor: '#e7e9ec', border: '1px solid #adb1b8', borderRadius: '4px', cursor: 'pointer', fontWeight: 'normal', boxShadow: '0 1px 0 rgba(255,255,255,.6) inset' }}
-                            >
-                                Create your FashionHub account
-                            </button>
+                            
+                            <div style={{
+                                marginTop: '20px',
+                                padding: '15px',
+                                background: '#fff3cd',
+                                borderRadius: '4px',
+                                border: '1px solid #ffc107'
+                            }}>
+                                <strong style={{ display: 'block', marginBottom: '10px', color: '#856404' }}>
+                                    🛡️ Admin Login
+                                </strong>
+                                <div style={{ fontSize: '0.85rem', color: '#856404' }}>
+                                    <div>Email: <code>admin@fashionhub.com</code></div>
+                                    <div>Password: <code>admin123456</code></div>
+                                </div>
+                            </div>
                         </>
                     ) : (
-                        <div style={{ borderTop: '1px solid #e7e7e7', paddingTop: '15px', fontSize: '0.85rem' }}>
-                            Already have an account? <span onClick={() => setIsLogin(true)} style={{ color: '#0066c0', cursor: 'pointer' }}>Sign in <i className="fas fa-caret-right"></i></span>
+                        <div style={{ textAlign: 'center', marginTop: '20px', paddingTop: '20px', borderTop: '1px solid #e7e7e7' }}>
+                            <p style={{ fontSize: '0.85rem', marginBottom: '10px' }}>Already have an account?</p>
+                            <button 
+                                type="button"
+                                onClick={() => {
+                                    setIsLogin(true);
+                                    setError('');
+                                }}
+                                style={{
+                                    width: '100%',
+                                    padding: '10px',
+                                    background: '#f0f0f0',
+                                    border: '1px solid #a6a6a6',
+                                    borderRadius: '4px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.9rem'
+                                }}
+                            >
+                                Sign in to your account
+                            </button>
                         </div>
                     )}
                 </form>

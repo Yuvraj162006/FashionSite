@@ -45,8 +45,8 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
                 </div>
 
                 <div className="modal-price">
-                    ₹{product.price.toFixed(2)}
-                    {product.originalPrice > product.price && (
+                    ₹{product.price}
+                    {product.discount && (
                         <>
                             <span style={{
                                 textDecoration: 'line-through',
@@ -54,7 +54,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
                                 fontSize: '0.9rem',
                                 color: '#666'
                             }}>
-                                ₹{product.originalPrice.toFixed(2)}
+                                ₹{Math.round(product.price / (1 - product.discount / 100))}
                             </span>
                             <span style={{
                                 color: '#2d7a3e',
@@ -67,7 +67,9 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
                     )}
                 </div>
 
-                <div className="modal-description">{product.description}</div>
+                <div className="modal-description">
+                    {product.description || `High quality ${product.name.toLowerCase()} perfect for everyday wear. Made with premium materials for maximum comfort and durability.`}
+                </div>
 
                 <div style={{ marginBottom: '20px' }}>
                     <strong style={{ display: 'block', marginBottom: '10px' }}>Select Size:</strong>
@@ -115,17 +117,19 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
                     </div>
                 </div>
 
-                <div className="modal-specs">
-                    <strong style={{ display: 'block', marginBottom: '10px' }}>
-                        Product Specifications:
-                    </strong>
-                    {Object.entries(product.specifications).map(([key, value]) => (
-                        <div key={key}>
-                            <strong>{key}:</strong>
-                            <span style={{ marginLeft: '10px' }}>{value}</span>
-                        </div>
-                    ))}
-                </div>
+                {product.specifications && (
+                    <div className="modal-specs">
+                        <strong style={{ display: 'block', marginBottom: '10px' }}>
+                            Product Specifications:
+                        </strong>
+                        {Object.entries(product.specifications).map(([key, value]) => (
+                            <div key={key}>
+                                <strong>{key}:</strong>
+                                <span style={{ marginLeft: '10px' }}>{value}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 <div className="modal-actions">
                     <button
